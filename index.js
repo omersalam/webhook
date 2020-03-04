@@ -22,7 +22,7 @@ restService.post('/webhook', function(req,res) {
   let response = " ";
   let responseObj = {
     "fulfillmentText": response,
-    "fulfillmentMessages:[{"text": {"text [w]}}]
+    "fulfillmentMessages":[{"text": {"text" [w]}}]
     ,"source":""
   }
   return res.json(responseObj);
@@ -41,7 +41,7 @@ function cb (err, resposne, body){
   }
   else
   {
-    result = 'its' + weather.main.temp+ 'degrees with' + weather.weather[0].description;
+    result = 'its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
   }
 }
 function getWeather(city) {
