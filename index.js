@@ -16,7 +16,7 @@ restService.use(bodyParser.json());
 restService.post('/webhook', function(req,res) {
   console.log('Recieve a post request');
   if(!req.body)  return res.sendStatus(400)
-    res.setHeader('content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json');
   var city = req.body.queryResult.parameters['geo-city'];
   var w = getWeather(city);
   let response = " ";
@@ -33,7 +33,7 @@ var result
 
 function cb (err, resposne, body){
   if(err){
-    console.log('error')
+    console.log('error');
   }
   var weather = JSON.parse(body)
   if(weather.message === 'city not found'){
