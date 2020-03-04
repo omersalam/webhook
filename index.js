@@ -22,7 +22,7 @@ restService.post('/webhook', function(req,res) {
   let response = " ";
   let responseObj = {
     "fulfillmentText": response,
-    "fulfillmentMessages":[{"text": {"text" [w]}}]
+    "fulfillmentMessages":[{"text": {"text": [w]}}]
     ,"source":""
   }
   return res.json(responseObj);
@@ -48,7 +48,7 @@ function getWeather(city) {
   result = undefined;
   var url = 'http://api.openweathermap.org/data/2.5/weather%20q=${city}&units=imperial&appid=${apiKey}';
   var req = request(url, cb);
-  while(result ==== undefined){
+  while(result == undefined){
     require('deasync').runLoopOnce;
   }
   return result;
