@@ -33,7 +33,7 @@ restService.use(bodyParser.json());
 //         }
 //     });
 
-restService.post("/get", function(req, res) {
+restService.post("/echo", function(req, res) {
 
 const https = require('https')
 
@@ -70,44 +70,45 @@ req.write(data)
 req.end()
 
 
-}
+});
 
 
 
 
 
-// restService.post("/echo", function(req, res) {
-//   var speech =
-//     req.body.queryResult &&
-//     req.body.queryResult.parameters &&
-//     req.body.queryResult.parameters.echoText
-//       ? req.body.queryResult.parameters.echoText
-//       : {'t': '75'};
+
+restService.post("/echo", function(req, res) {
+  var speech =
+    req.body.queryResult &&
+    req.body.queryResult.parameters &&
+    req.body.queryResult.parameters.echoText
+      ? req.body.queryResult.parameters.echoText
+      : {'t': '75'};
   
-//   var speechResponse = {
-//     google: {
-//       expectUserResponse: true,
-//       richResponse: {
-//         items: [
-//           {
-//             simpleResponse: {
-//               textToSpeech: speech
-//             }
-//           }
-//         ]
-//       }
-//     }
-//   };
+  var speechResponse = {
+    google: {
+      expectUserResponse: true,
+      richResponse: {
+        items: [
+          {
+            simpleResponse: {
+              textToSpeech: speech
+            }
+          }
+        ]
+      }
+    }
+  };
   
-//   return res.json({
-//     payload: speechResponse,
-//     //data: speechResponse,
-//     fulfillmentText: speech,
-//     speech: speech,
-//     displayText: speech,
-//     source: "webhook-echo-sample"
-//   });
-// });
+  return res.json({
+    payload: speechResponse,
+    //data: speechResponse,
+    fulfillmentText: speech,
+    speech: speech,
+    displayText: speech,
+    source: "webhook-echo-sample"
+  });
+});
 
 restService.post("/audio", function(req, res) {
   var speech = "";
