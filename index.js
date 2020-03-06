@@ -41,9 +41,9 @@ const data = JSON.stringify({
 })
 
 const options = {
-  hostname: 'whatever.com',
+  hostname: 'https://pacific-wildwood-80427.herokuapp.com',
   port: 8000,
-  path: 'https://hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
