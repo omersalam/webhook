@@ -33,7 +33,7 @@ restService.use(bodyParser.json());
 //         }
 //     });
 
-restService.post("/echo", function(req, res) {
+restService.post("/get", function(req, res) {
 
 const https = require('https')
 
@@ -71,10 +71,6 @@ req.end()
 
 
 });
-
-
-
-
 
 
 restService.post("/echo", function(req, res) {
