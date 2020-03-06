@@ -68,7 +68,14 @@ req.on('error', error => {
 
 req.write(data)
 req.end()
-
+return res.json({
+  payload:  {'t': '75'},
+  //data: speechResponse,
+  fulfillmentText: speech,
+  speech: speech,
+  displayText: speech,
+  source: "webhook-echo-sample"
+});
 
 });
 
