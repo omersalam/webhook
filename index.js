@@ -47,7 +47,8 @@ const options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Content-Length': data.length
+    'Content-Length': data.length,
+    'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
   }
 }
 
