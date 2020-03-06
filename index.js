@@ -10,8 +10,8 @@ restService.use(
     extended: true
   })
 );
-
 restService.use(bodyParser.json());
+
 
 const https = require('https')
 
@@ -21,9 +21,9 @@ const data = JSON.stringify({
 })
 
 const options = {
-  hostname: 'hypernet-elaraby.azure-devices.net',
+  hostname: 'pacific-wildwood-80427.herokuapp.com',
   port: 443,
-  path: '/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
