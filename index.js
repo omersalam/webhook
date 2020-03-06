@@ -74,13 +74,13 @@ req.end()
 
 
 
-restService.post("/echo", function(req, res) {
+restService.post("/hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30", function(req, res) {
   var speech =
     req.body.queryResult &&
     req.body.queryResult.parameters &&
-    req.body.queryResult.parameters.echoText
-      ? req.body.queryResult.parameters.echoText
-      : "Seems like some problem. Speak again.";
+    req.body.queryResult.parameters.payload
+      ? req.body.queryResult.parameters.payload
+      : {'t': '75'};
   
   var speechResponse = {
     google: {
