@@ -13,63 +13,39 @@ restService.use(
 
 restService.use(bodyParser.json());
 
+const https = require('https')
 
-// var request = require('request');
+const data = JSON.stringify({
+  methodName: 'stt',
+  payload : {'t': '75'}
+})
 
-// request({
-//     url: "https://hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30",
-//     method: "POST",
-//     headers: {
-//            'Content-Type': 'application/json',
-//            'Authorization': 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
-//     },
-//     json:{
-//         "methodName": "stt", "payload": {"t": "75"}
-//       } , function(err, res, body){
-//         if(!err){
-//             // do your thing
-//         }else{
-//             // handle error
-//         }
-//     });
+const options = {
+  hostname: 'pacific-wildwood-80427.herokuapp.com',
+  port: 8000,
+  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length,
+    'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
+  }
+}
 
-// const https = require('https')
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
 
-// const data = JSON.stringify({
-//   methodName: 'stt',
-//   payload : {'t': '75'}
-// })
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
 
-// const options = {
-//   hostname: 'pacific-wildwood-80427.herokuapp.com',
-//   port: 8000,
-//   path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Content-Length': data.length,
-//     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
-//   }
-// }
+req.on('error', error => {
+  console.error(error)
+})
 
-// const req = https.request(options, res => {
-//   console.log(`statusCode: ${res.statusCode}`)
-
-//   res.on('data', d => {
-//     process.stdout.write(d)
-//   })
-// })
-
-// req.on('error', error => {
-//   console.error(error)
-// })
-
-// req.write(data)
-// req.end()
-
-
-
-
+req.write(data)
+req.end()
 
 
 
