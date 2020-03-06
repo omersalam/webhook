@@ -13,7 +13,7 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.post("/get", function(req, res) {
+// restService.post("/get", function(req, res) {
 
 const https = require('https')
 
@@ -21,7 +21,6 @@ const data = JSON.stringify({
   methodName: 'stt',
   payload : {'t': '75'}
 })
-
 const options = {
   hostname: 'pacific-wildwood-80427.herokuapp.com',
   port: 8000,
@@ -32,7 +31,6 @@ const options = {
     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
   }
 }
-
 const req = https.request(options, res => {
   console.log(`statusCode: ${res.statusCode}`)
 
@@ -47,15 +45,15 @@ req.on('error', error => {
 
 req.write(data)
 req.end()
-return res.json({
-  payload:  {'t': '75'},
-  //data: speechResponse,
-  fulfillmentText: speech,
-  speech: speech,
-  displayText: speech,
-  source: "webhook-echo-sample"
-});
-});
+// return res.json({
+//   payload:  {'t': '75'},
+//   //data: speechResponse,
+//   fulfillmentText: speech,
+//   speech: speech,
+//   displayText: speech,
+//   source: "webhook-echo-sample"
+// });
+// });
 
 restService.post("/echo", function(req, res) {
   var speech =
