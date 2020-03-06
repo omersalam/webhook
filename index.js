@@ -29,7 +29,6 @@ const options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Content-Length': data.length,
     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
   }
 }
@@ -56,7 +55,6 @@ return res.json({
   displayText: speech,
   source: "webhook-echo-sample"
 });
-
 });
 
 restService.post("/echo", function(req, res) {
@@ -65,7 +63,7 @@ restService.post("/echo", function(req, res) {
     req.body.queryResult.parameters &&
     req.body.queryResult.parameters.echoText
       ? req.body.queryResult.parameters.echoText
-      : {'t': '75'};
+      :"";
   
   var speechResponse = {
     google: {
