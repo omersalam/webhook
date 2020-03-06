@@ -21,13 +21,12 @@ const data = JSON.stringify({
 })
 
 const options = {
-  hostname: 'pacific-wildwood-80427.herokuapp.com',
-  port: 8000,
-  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+  hostname: 'hypernet-elaraby.azure-devices.net',
+  port: 443,
+  path: '/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Content-Length': data.length,
     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
   }
 }
