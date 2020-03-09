@@ -94,46 +94,43 @@ restService.post('/webhook', function(req,res) {
 
 let request = require('request');
 
-var result;
+var result
 
-// function cb (err, resposne, body){
-//   if(err){
-//     console.log('error');
-//   }
-//   var weather = JSON.parse(body)
-//   if(weather.message === 'city not found'){
-//     result = 'Unable to get weather' + weather.message;
-//   }
-//   else
-//   {
-//     result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
-//   }
-// }
+function cb (err, _resposne, body){
+  if(err){
+    console.log('error');
+  }
+  var weather = JSON.parse(body)
+  if(weather.message === 'city not found'){
+    result = 'Unable to get weather' + weather.message;
+  }
+  else
+  {
+    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
+  }
+}
 
 function getWeather(city) {
   result = undefined;
   let apiKey = '6628ad3fd90a97fb39ff9793c7569874';
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-  request(url, function (err, _response, body) {
-    if(err){
-      console.log('error:', error);
-    } if(weather.message === 'city not found'){
-      result = 'Unable to get weather' + weather.message;
-      }
-      else {
-      let weather = JSON.parse(body)
-
-      let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-      result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description
-      console.log(message);
-    }
-  });
+  var req = request(url);
   while(result == undefined){
     require('deasync').runLoopOnce();
   }
   return result;
 }
 
+request(url, function (err, response, body) {
+  if(err){
+    console.log('error:', error);
+  } else {
+    let weather = JSON.parse(body)
+    let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description
+    console.log(message);
+  }
+});
 ///////////////////////////////////////////////
 
 
