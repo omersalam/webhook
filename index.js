@@ -121,16 +121,6 @@ function getWeather(city) {
   return result;
 }
 
-request(url, function (err, response, body) {
-  if(err){
-    console.log('error:', error);
-  } else {
-    let weather = JSON.parse(body)
-    let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description
-    console.log(message);
-  }
-});
 ///////////////////////////////////////////////
 
 
