@@ -32,7 +32,7 @@ restService.post('/webhook', function(req,res) {
   return res.json(responseObj);
   })
 
-//var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
+var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
 var result
 
 function cb (err, resposne, body){
@@ -41,19 +41,20 @@ function cb (err, resposne, body){
   }
   var weather = JSON.parse(body)
   if(weather.message === 'city not found'){
-    result = 'unable to get weather' + weather.message;
+    result = 'Unable to get weather' + weather.message;
   }
   else
   {
-    result = 'its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
+    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
   }
 }
-function getWeather(_city) {
+
+function getWeather(city) {
   result = undefined;
   var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874';
   var req = request(url, cb);
   while(result == undefined){
-    require('deasync').runLoopOnce;
+    require('deasync').runLoopOnce();
   }
   return result;
 }
@@ -298,6 +299,6 @@ restService.post("/slack-test", function(req, res) {
   });
 });
 
-restService.listen(process.env.PORT || 8080, function() {
+restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
