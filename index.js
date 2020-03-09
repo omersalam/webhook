@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const restService = express();
+const https = require('https')
 
 restService.use(
   bodyParser.urlencoded({
@@ -13,37 +14,88 @@ restService.use(
 restService.use(bodyParser.json());
 
 
-const https = require('https')
 
-const data = JSON.stringify({
-  'methodName': 'stt', 
-  'payload': {'t': '75'}
-})
 
-const options = {
-  hostname: 'pacific-wildwood-80427.herokuapp.com',
-  port: 434,
-  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
+///////////////////////////////////////////////////////////////
+restService.post('/webhook', function(req,res) {
+  console.log('Recieve a post request');
+  if(!req.body)  return res.sendStatus(400)
+    res.setHeader('Content-Type', 'application/json');
+  var city = req.body.queryResult.parameters['geo-city'];
+  var w = getWeather(city);
+  let response = " ";
+  let responseObj = {
+    "fulfillmentText": response,
+    "fulfillmentMessages":[{"text": {"text": [w]}}]
+    ,"source":""
+  }
+  return res.json(responseObj);
+  });
+
+var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
+var result
+
+function cb (err, resposne, body){
+  if(err){
+    console.log('error');
+  }
+  var weather = JSON.parse(body)
+  if(weather.message === 'city not found'){
+    result = 'unable to get weather' + weather.message;
+  }
+  else
+  {
+    result = 'its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
   }
 }
-const req = https.request(options, res => {
-  console.log(`statusCode: ${res.statusCode}`)
+function getWeather(city) {
+  result = undefined;
+  var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}';
+  var req = request(url, cb);
+  while(result == undefined){
+    require('deasync').runLoopOnce;
+  }
+  return result;
+}
 
-  res.on('data', d => {
-    process.stdout.write(d)
-  })
-})
+///////////////////////////////////////////////
 
-req.on('error', error => {
-  console.error(error)
-})
 
-req.write(data)
-req.end()
+
+
+
+
+// const https = require('https')
+
+// const data = JSON.stringify({
+//   'methodName': 'stt', 
+//   'payload': {'t': '75'}
+// })
+
+// const options = {
+//   hostname: 'pacific-wildwood-80427.herokuapp.com',
+//   port: 433,
+//   path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
+//   }
+// }
+// const req = https.request(options, res => {
+//   console.log(`statusCode: ${res.statusCode}`)
+
+//   res.on('data', d => {
+//     process.stdout.write(d)
+//   })
+// })
+
+// req.on('error', error => {
+//   console.error(error)
+// })
+
+// req.write(data)
+// req.end()
 
 // restService.post("/hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30", function(req, res) {
  
