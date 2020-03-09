@@ -86,7 +86,7 @@ restService.post('/webhook', function(req,res) {
   let responseObj = {
     "fulfillmentText": response,
     "fulfillmentMessages":[{"text": {"text": [w]}}]
-    ,"source":""
+    ,"source":"webhook-echo-sample"
   }
  //return res.JSON(JSON.stringify)({speech:w, displayText: w, source:"webhook-echo-sample"});
   return res.json(responseObj);
