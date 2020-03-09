@@ -93,7 +93,20 @@ restService.post('/webhook', function(req,res) {
    
   })
 
-var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
+  let request = require('request');
+
+  // request(url, function (err, response, body) {
+  //   if(err){
+  //     console.log('error:', error);
+  //   } else {
+  //     let weather = JSON.parse(body)
+  //     let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+  //     console.log(message);
+  //   }
+  // });
+
+
+
 var result
 
 function cb (err, _resposne, body){
@@ -112,7 +125,8 @@ function cb (err, _resposne, body){
 
 function getWeather(_city) {
   result = undefined;
-  var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874';
+  let apiKey = '6628ad3fd90a97fb39ff9793c7569874';
+  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
   var req = request(url, cb);
   while(result == undefined){
     require('deasync').runLoopOnce();
@@ -360,6 +374,6 @@ restService.post("/slack-test", function(req, res) {
   });
 });
 
-restService.listen(process.env.PORT || 8000, function() {
+restService.listen(process.env.PORT || 3000, function() {
   console.log("Server up and listening");
 });
