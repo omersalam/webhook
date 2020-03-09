@@ -16,7 +16,7 @@ restService.use(
 );
 restService.use(bodyParser.json());
 
-app . post ( '/weather' ,  function  ( req ,  res )  {
+restService.post ( '/weather' ,  function  ( req ,  res )  {
   // We extract the city parameter, which is within the request (webhook) of the agent
   var  city  =  req.body.queryResult.parameters.City ;
   var  codeCity  =  0 ;
