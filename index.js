@@ -83,13 +83,14 @@ restService.post('/webhook', function(req,res) {
   var city = req.body.queryResult.parameters.City;
   var w = getWeather(city);
   let response = "Hi";
-  let responseObj = {
-    "fulfillmentText": response,
-    "fulfillmentMessages":[{"text": {"text": [w]}}]
-    ,"source":"webhook-echo-sample"
-  }
  //return res.JSON(JSON.stringify)({speech:w, displayText: w, source:"webhook-echo-sample"});
-  return res.json(responseObj);
+ // return res.json(responseObj);
+    return res.json({
+    //data: speechResponse,
+    fulfillmentText: speech,
+    fulfillmentMessages: [{"text": {"text": [w]}}],
+    source: "webhook-echo-sample"
+  });
   });
 
 let request = require('request');
