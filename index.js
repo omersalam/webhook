@@ -13,70 +13,70 @@ restService.use(
 restService.use(bodyParser.json());
 
 
-// const https = require('https')
+const https = require('https')
 
-// const data = JSON.stringify({
-//   methodName: 'stt',
-//   payload : {'t': '75'}
-// })
+const data = JSON.stringify({
+  'methodName': 'stt', 
+  'payload': {'t': '75'}
+})
 
-// const options = {
-//   hostname: 'pacific-wildwood-80427.herokuapp.com',
-//   port: 8080,
-//   path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
-//   }
-// }
+const options = {
+  hostname: 'pacific-wildwood-80427.herokuapp.com',
+  port: 434,
+  path: 'hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization' : 'SharedAccessSignature sr=Hypernet-Elaraby.azure-devices.net&sig=gYbnD7TYnuYGaiHS2TNAJ3bHiJ6fbTPDYcqq1clMAGc%3D&se=1873684081&skn=iothubowner'
+  }
+}
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
 
-// const req = https.request(options, res => {
-//   console.log(`statusCode: ${res.statusCode}`)
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
 
-//   res.on('data', d => {
-//     process.stdout.write(d)
-//   })
-// })
+req.on('error', error => {
+  console.error(error)
+})
 
-// req.on('error', error => {
-//   console.error(error)
-// })
+req.write(data)
+req.end()
 
-// req.write(data)
-// req.end()
-
-restService.post("/hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30", function(req, res) {
-  var speech =
-    req.body.queryResult &&
-    req.body.queryResult.parameters &&
-    req.body.queryResult.parameters.payload
-      ? req.body.queryResult.parameters.payload
-      : "getting";
+// restService.post("/hypernet-elaraby.azure-devices.net/twins/elaraby-wh-65l-629b/methods?api-version=2018-06-30", function(req, res) {
+ 
+//   var speech =
+//     req.body.queryResult &&
+//     req.body.queryResult.parameters &&
+//     req.body.queryResult.parameters.payload
+//       ? req.body.queryResult.parameters.payload
+//       : "getting";
   
-  var speechResponse = {
-    google: {
-      expectUserResponse: true,
-      richResponse: {
-        items: [
-          {
-            simpleResponse: {
-              textToSpeech: speech
-            }
-          }
-        ]
-      }
-    }
-  };
-  return res.json({
-    payload: speechResponse,
-    //data: speechResponse,
-    fulfillmentText: speech,
-    speech: speech,
-    displayText: speech,
-    source: "webhook-echo-sample"
-  });
-});
+//   var speechResponse = {
+//     google: {
+//       expectUserResponse: true,
+//       richResponse: {
+//         items: [
+//           {
+//             simpleResponse: {
+//               textToSpeech: speech
+//             }
+//           }
+//         ]
+//       }
+//     }
+//   };
+//   return res.json({
+//     payload: speechResponse,
+//     //data: speechResponse,
+//     fulfillmentText: speech,
+//     speech: speech,
+//     displayText: speech,
+//     source: "webhook-echo-sample"
+//   });
+// });
 
 restService.post("/audio", function(req, res) {
   var speech = "";
