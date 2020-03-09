@@ -34,10 +34,10 @@ restService.post('/webhook', function(req,res) {
    
   })
 
-var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
+//var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
 var result
 
-function cb (err, resposne, body){
+function cb (err, _resposne, body){
   if(err){
     console.log('error');
   }
@@ -53,7 +53,7 @@ function cb (err, resposne, body){
 
 function getWeather(_city) {
   result = undefined;
-  var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}';
+  var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874';
   var req = request(url, cb);
   while(result == undefined){
     require('deasync').runLoopOnce();
