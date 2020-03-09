@@ -90,33 +90,30 @@ restService.post('/webhook', function(req,res) {
   }
  //return res.JSON(JSON.stringify)({speech:w, displayText: w, source:"webhook-echo-sample"});
   return res.json(responseObj);
-   
-  })
+  });
 
-  let request = require('request');
+let request = require('request');
 
 var result
 
-function cb (err, _resposne, body){
-  if(err){
-    console.log('error');
-  }
-  var weather = JSON.parse(body)
-  if(weather.message === 'city not found'){
-    result = 'Unable to get weather' + weather.message;
-  }
-  else
-  {
-    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
-  }
-}
+// function cb (err, resposne, body){
+//   if(err){
+//     console.log('error');
+//   }
+//   var weather = JSON.parse(body)
+//   if(weather.message === 'city not found'){
+//     result = 'Unable to get weather' + weather.message;
+//   }
+//   else
+//   {
+//     result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
+//   }
+// }
 
 function getWeather(city) {
   result = undefined;
   let apiKey = '6628ad3fd90a97fb39ff9793c7569874';
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
-  var req = request(url, cb);
-
+  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
   request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
