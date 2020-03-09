@@ -14,7 +14,9 @@ restService.use(
 restService.use(bodyParser.json());
 
 
-
+restService.post( '/weather' ,  function  ( req ,  res )  {
+  res.json ( { fulfillmentText : 'Responded from webhook on node' } ) ;
+});
 
 ///////////////////////////////////////////////////////////////
 restService.post('/webhook', function(req,res) {
