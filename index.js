@@ -32,7 +32,7 @@ restService.post('/webhook', function(req,res) {
  return res.JSON(JSON.stringify)({speech:w, displayText: w, source:"webhook-echo-sample"});
   //return res.json(responseObj);
    
-  });
+  })
 
 var apiKey = '6628ad3fd90a97fb39ff9793c7569874';
 var result
@@ -51,7 +51,7 @@ function cb (err, resposne, body){
   }
 }
 
-function getWeather(city) {
+function getWeather(_city) {
   result = undefined;
   var url = 'http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}';
   var req = request(url, cb);
