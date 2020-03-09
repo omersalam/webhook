@@ -80,9 +80,9 @@ restService.post('/webhook', function(req,res) {
   console.log('Recieve a post request');
   if(!req.body)  return res.sendStatus(400)
     res.setHeader('Content-Type', 'application/json');
-  var city = req.body.queryResult.parameters.City;
+  var city = req.body.queryResult.parameters['geo-city'];
   var w = getWeather(city);
-  let response = "H";
+  let response = "";
  //return res.JSON(JSON.stringify)({speech:w, displayText: w, source:"webhook-echo-sample"});
  // return res.json(responseObj);
     return res.json({
