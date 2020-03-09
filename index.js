@@ -88,7 +88,7 @@ restService.post('/webhook', function(req,res) {
     return res.json({
     //data: speechResponse,
     "fulfillmentText": response,
-    "fulfillmentMessages": [{"text": {"text": [w]}}],
+    "fulfillmentMessages": w,
     "source": "webhook-echo-sample"
   });
 })
