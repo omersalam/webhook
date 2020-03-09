@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const restService = express();
 const https = require('https')
 
-restService.use( bodyParser.urlencoded ({extended : false  } ) ) ;
+restService.use( bodyParser.urlencoded ({extended : false} ) ) ;
 restService.use( bodyParser.json ( ) ) ;
 
 restService.use(
@@ -16,63 +16,63 @@ restService.use(
 );
 restService.use(bodyParser.json());
 
-restService.post ( '/weather' ,  function  ( req ,  res )  {
-  // We extract the city parameter, which is within the request (webhook) of the agent
-  var  city  =  req.body.queryResult.parameters.City ;
-  var  codeCity  =  0 ;
-  var  urlCodigoCiudad  = 'http://api.openweathermap.org/data/2.5/weather?q= '+ city + '&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874' ;
-  console.log( 'Climate query for'  +  city ) ;
+// restService.post ('/weather' ,  function  ( req ,  res )  {
+//   // We extract the city parameter, which is within the request (webhook) of the agent
+//   var  city  =  req.body.queryResult.parameters.City ;
+//   var  codeCity  =  0 ;
+//   var  urlCodigoCiudad  = 'http://api.openweathermap.org/data/2.5/weather?q= '+ city + '&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874' ;
+//   console.log( 'Climate query for'  +  city ) ;
 
-  // JSON type variable to save the response to be sent to the agent
-  var  resClima  =  {
-    fulfillmentText : ''
-  } ;
+//   // JSON type variable to save the response to be sent to the agent
+//   var  resClima  =  {
+//     fulfillmentText : ''
+//   } ;
 
-  // We make the query to find the city by name
-  request ( urlCodeCity ,  {  json : true  } ,  ( err ,  resp ,  body )  =>  {    
-    // If there is an error processing the city search request
-    if ( err ) { 
-      console . log ( 'Error searching city' ) ;
-      console . log ( err ) ;
-      resClima.fulfillmentText  =  'It was not possible to check your city at this time' ;
-    }
-    else { 
-      // The content of the response to our request is found in the body variable
-      // for more information about how the request module works
-      //https://www.npmjs.com/package/request
+//   // We make the query to find the city by name
+//   request ( urlCodeCity ,  {  json : true  } ,  ( err ,  resp ,  body )  =>  {    
+//     // If there is an error processing the city search request
+//     if ( err ) { 
+//       console . log ( 'Error searching city' ) ;
+//       console . log ( err ) ;
+//       resClima.fulfillmentText  =  'It was not possible to check your city at this time' ;
+//     }
+//     else { 
+//       // The content of the response to our request is found in the body variable
+//       // for more information about how the request module works
+//       //https://www.npmjs.com/package/request
 
 
    
-      if ( body.length  ==  0 ) {
-        console.log ( 'City not found' ) ;
-        resClima.fulfillmentText  =  'Your city was not found, make sure you wrote it correctly' ;
-        res.json ( resClima ) ;
-      }
-      else {
-        // We extract the city id
-        citycode  =  body [0].Key ;
-        // and assemble the url for the weather consultation
-        var  urlClimaCiudad  =  'http://api.openweathermap.org/data/2.5/weather?q= '+city + '&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874' ;
+//       if ( body.length  ==  0 ) {
+//         console.log ( 'City not found' ) ;
+//         resClima.fulfillmentText  =  'Your city was not found, make sure you wrote it correctly' ;
+//         res.json ( resClima ) ;
+//       }
+//       else {
+//         // We extract the city id
+//         //citycode  =  body[0].Key ;
+//         // and assemble the url for the weather consultation
+//         var  urlClimaCiudad  =  'http://api.openweathermap.org/data/2.5/weather?q= '+ city + '&units=imperial&appid=6628ad3fd90a97fb39ff9793c7569874' ;
         
-        // We carry out the consultation to look for the climate of the city by its id
-        request ( urlClimaCiudad ,  { json : true } ,  ( err2 ,  resp2 ,  body2 )  =>  {
-          // in case of error we indicate a problem
-          if ( err2 ) {
-            console. log ( 'Problem getting the weather' ) ;
-            resClima. fulfillmentText  =  'It was not possible to check the climate of your city at this time' ;
-          }
+//         // We carry out the consultation to look for the climate of the city by its id
+//         request ( urlClimaCiudad ,  { json : true } ,  ( err2 ,  resp2 ,  body2 )  =>  {
+//           // in case of error we indicate a problem
+//           if ( err2 ) {
+//             console. log ( 'Problem getting the weather' ) ;
+//             resClima. fulfillmentText  =  'It was not possible to check the climate of your city at this time' ;
+//           }
 
-          // We extract the information from the API, and assemble the response to be sent to the agent
-          // more details https://developer.accuweather.com/accuweather-current-conditions-api/apis/get/currentconditions/v1/%7BlocationKey%7D
-          resClima.fulfillmentText  =  'Right now its' + weather.main.temp;
-          resClima.fulfillmentText  +=  'degrees with' + weather.weather[0].description;          
+//           // We extract the information from the API, and assemble the response to be sent to the agent
+//           // more details https://developer.accuweather.com/accuweather-current-conditions-api/apis/get/currentconditions/v1/%7BlocationKey%7D
+//           resClima.fulfillmentText  =  'Right now its' + weather.main.temp;
+//           resClima.fulfillmentText  +=  'degrees with' + weather.weather[0].description;          
 
-          res.json(resClima) ;
-        } ) ;
-      }
-    }
-  } ) ;
-} ) ;
+//           res.json(resClima) ;
+//         } ) ;
+//       }
+//     }
+//   } ) ;
+// } ) ;
 //////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ restService.post('/webhook', function(req,res) {
   console.log('Recieve a post request');
   if(!req.body)  return res.sendStatus(400)
     res.setHeader('Content-Type', 'application/json');
-  var city = req.body.queryResult.parameters['geo-city'];
+  var city = req.body.queryResult.parameters.City;
   var w = getWeather(city);
   let response = " ";
   let responseObj = {
