@@ -95,18 +95,6 @@ restService.post('/webhook', function(req,res) {
 
   let request = require('request');
 
-  // request(url, function (err, response, body) {
-  //   if(err){
-  //     console.log('error:', error);
-  //   } else {
-  //     let weather = JSON.parse(body)
-  //     let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-  //     console.log(message);
-  //   }
-  // });
-
-
-
 var result
 
 function cb (err, _resposne, body){
@@ -129,7 +117,7 @@ function getWeather(city) {
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
   var req = request(url, cb);
 
-  request(url, cb, function (err, response, body) {
+  request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
     } else {
@@ -139,8 +127,6 @@ function getWeather(city) {
       console.log(message);
     }
   });
-
-
   while(result == undefined){
     require('deasync').runLoopOnce();
   }
