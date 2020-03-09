@@ -82,7 +82,7 @@ restService.post('/webhook', function(req,res) {
     res.setHeader('Content-Type', 'application/json');
   var city = req.body.queryResult.parameters.City;
   var w = getWeather(city);
-  let response = " ";
+  let response = "Hi";
   let responseObj = {
     "fulfillmentText": response,
     "fulfillmentMessages":[{"text": {"text": [w]}}]
@@ -96,7 +96,7 @@ let request = require('request');
 
 var result
 
-function cb (err, _resposne, body){
+function cb (err, resposne, body){
   if(err){
     console.log('error');
   }
@@ -114,12 +114,22 @@ function getWeather(city) {
   result = undefined;
   let apiKey = '6628ad3fd90a97fb39ff9793c7569874';
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-  var req = request(url, cb);
-  while(result == undefined){
+  var req = request(url, cb );
+  while(result === undefined){
     require('deasync').runLoopOnce();
   }
   return result;
 }
+request(url, function (err, _response, body) {
+  if(err){
+    console.log('error:', error);
+  } else {
+    let weather = JSON.parse(body)
+    let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+    result = 'Right now its' + weather.main.temp + 'degrees with' + weather.weather[0].description;
+    console.log(message);
+  }
+});
 
 ///////////////////////////////////////////////
 
